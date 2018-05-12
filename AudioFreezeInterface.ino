@@ -30,14 +30,14 @@ void AUDIO_FREEZE_INTERFACE::setup()
   }
 }
 
-void AUDIO_FREEZE_INTERFACE::update()
+void AUDIO_FREEZE_INTERFACE::update(ADC& adc)
 {
   int32_t time_in_ms = millis();
   
-  m_length_dial.update() ;
-  m_position_dial.update();
-  m_speed_dial.update();
-  m_mix_dial.update();
+  m_length_dial.update(adc) ;
+  m_position_dial.update(adc);
+  m_speed_dial.update(adc);
+  m_mix_dial.update(adc);
   
   m_freeze_button.update( time_in_ms );
   m_mode_button.update( time_in_ms );

@@ -10,9 +10,9 @@ DIAL::DIAL( int data_pin ) :
 
 }
 
-bool DIAL::update()
+bool DIAL::update( ADC& adc )
 {
-  int new_value = analogRead( m_data_pin );
+  const int new_value = adc.analogRead( m_data_pin, ADC_1 );
   
   if( new_value != m_current_value )
   {

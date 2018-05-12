@@ -12,7 +12,7 @@ public:
 
   DIAL( int data_pin );
 
-  bool          update();
+  bool          update( ADC& adc );
   float         value() const;  
 };
 
