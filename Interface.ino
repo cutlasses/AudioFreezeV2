@@ -25,7 +25,7 @@ bool DIAL::update( ADC& adc )
 
 float DIAL::value() const
 {
-  return m_current_value / 1024.0f;
+  return m_current_value / 65536.0f;
 }
 
 //////////////////////////////////////

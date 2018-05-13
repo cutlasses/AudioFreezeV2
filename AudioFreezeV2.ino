@@ -33,7 +33,6 @@ IO io;
 
 AUDIO_FREEZE_EFFECT      audio_freeze_effect;
 AudioMixer4              audio_mixer;
-AudioOutputI2S           audio_output;
 
 AudioConnection          patch_cord_L1( io.audio_input, 0, audio_freeze_effect, MIX_FREEZE_CHANNEL );
 AudioConnection          patch_cord_L2( audio_freeze_effect, 0, audio_mixer, 0 );
@@ -81,7 +80,7 @@ void setup()
   
   Serial.begin(9600);
 
-  set_adc1_to_3v3();
+  //set_adc1_to_3v3();
 
   serial_port_initialised = true;
 
@@ -98,7 +97,7 @@ void setup()
 }
 
 void loop()
-{  
+{ 
   audio_freeze_interface.update( io.adc );
 
   if( audio_freeze_interface.freeze_button().active() != audio_freeze_effect.is_freeze_active() )

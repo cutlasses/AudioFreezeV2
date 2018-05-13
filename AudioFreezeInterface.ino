@@ -90,38 +90,18 @@ void AUDIO_FREEZE_INTERFACE::update(ADC& adc)
   alt_func_led.update();
 
 #ifdef DEBUG_OUTPUT
-  /*
-  if( m_speed_dial.update() )
-  {
     Serial.print("Speed ");
     Serial.print(m_speed_dial.value());
-    Serial.print("\n");
-  }
-  if( m_mix_dial.update() )
-  {
-    Serial.print("Mix ");
+
+    Serial.print(" Mix ");
     Serial.print(m_mix_dial.value());
-    Serial.print("\n");   
-  }
-  if( m_length_dial.update() )
-  {
-    Serial.print("Length ");
+
+    Serial.print(" Length ");
     Serial.print(m_length_dial.value());
-    Serial.print("\n");
-  }
-  if( m_position_dial.update() )
-  {
-    Serial.print("Position ");
+ 
+    Serial.print(" Position ");
     Serial.print(m_position_dial.value());
     Serial.print("\n");   
-  }
-  m_freeze_button.update();
-
-  if( m_freeze_button.active() )
-  {
-    Serial.print("on\n");
-  }
-  */
 #endif // DEBUG_OUTPUT
 }
 
