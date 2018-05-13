@@ -80,7 +80,7 @@ void setup()
   
   Serial.begin(9600);
 
-  //set_adc1_to_3v3();
+  set_adc1_to_3v3();
 
   serial_port_initialised = true;
 
