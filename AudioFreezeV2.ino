@@ -104,11 +104,11 @@ void loop()
   {
     audio_freeze_effect.set_freeze( audio_freeze_interface.freeze_button().active() );
 
-    // no mix dial, so set mix directly
     if( audio_freeze_interface.freeze_button().active() )
     {
-      audio_mixer.gain( MIX_FREEZE_CHANNEL,1.0f );
-      audio_mixer.gain( MIX_ORIGINAL_CHANNEL, 0.0f );
+      const float mix = audio_freeze_interface.mix_dial().value();
+      audio_mixer.gain( MIX_FREEZE_CHANNEL, mix );
+      audio_mixer.gain( MIX_ORIGINAL_CHANNEL, 1.0f - mix );
     }
     else
     {
@@ -126,12 +126,10 @@ void loop()
     audio_freeze_effect.set_reverse( false );
   }
 
-   // use the mix dial to control wow/flutter
-  const float wow_flutter_amount = clamp( audio_freeze_interface.mix_dial().value(), 0.0f, 1.0f );
   const float max_wow( 1.0f );
   const float max_flutter( 0.65f );
-  audio_freeze_effect.set_wow_amount( wow_flutter_amount * max_wow ); 
-  audio_freeze_effect.set_flutter_amount( wow_flutter_amount * max_flutter ); 
+  audio_freeze_effect.set_wow_amount( audio_freeze_interface.wow_dial().value() * max_wow ); 
+  audio_freeze_effect.set_flutter_amount( audio_freeze_interface.flutter_dial().value() * max_flutter ); 
 
   audio_freeze_effect.set_length( audio_freeze_interface.length_dial().value() );
   audio_freeze_effect.set_centre( audio_freeze_interface.position_dial().value() );

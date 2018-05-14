@@ -4,12 +4,14 @@
 
 class AUDIO_FREEZE_INTERFACE
 {
-  static const int      LENGTH_DIAL_PIN                 = A16;
-  static const int      POSITION_DIAL_PIN               = A17;
+  static const int      LENGTH_DIAL_PIN                 = A20;
+  static const int      POSITION_DIAL_PIN               = A19;
   static const int      SPEED_DIAL_PIN                  = A18;
-  static const int      MIX_DIAL_PIN                    = A19;
-  static const int      FREEZE_BUTTON_PIN               = 2;
-  static const int      MODE_BUTTON_PIN                 = 1;
+  static const int      WOW_DIAL_PIN                    = A17;
+  static const int      FLUTTER_DIAL_PIN                = A16;
+  static const int      MIX_DIAL_PIN                    = A13;
+  static const int      FREEZE_BUTTON_PIN               = 1;
+  static const int      MODE_BUTTON_PIN                 = 2;
   static const int      LED_1_PIN                       = 7;
   static const int      LED_2_PIN                       = 11;
   static const int      LED_3_PIN                       = 29;
@@ -23,6 +25,8 @@ class AUDIO_FREEZE_INTERFACE
   DIAL              m_length_dial;
   DIAL              m_position_dial;
   DIAL              m_speed_dial;
+  DIAL              m_wow_dial;
+  DIAL              m_flutter_dial;
   DIAL              m_mix_dial;
 
   BUTTON            m_freeze_button;
@@ -44,6 +48,8 @@ public:
   const DIAL&   length_dial() const;
   const DIAL&   position_dial() const;
   const DIAL&   speed_dial() const;
+  const DIAL&   wow_dial() const;
+  const DIAL&   flutter_dial() const;
   const DIAL&   mix_dial() const;
   const BUTTON& freeze_button() const;
 

@@ -5,6 +5,8 @@ AUDIO_FREEZE_INTERFACE::AUDIO_FREEZE_INTERFACE() :
   m_length_dial( LENGTH_DIAL_PIN ),
   m_position_dial( POSITION_DIAL_PIN ),
   m_speed_dial( SPEED_DIAL_PIN ),
+  m_wow_dial( WOW_DIAL_PIN ),
+  m_flutter_dial( FLUTTER_DIAL_PIN ),
   m_mix_dial( MIX_DIAL_PIN ),
   m_freeze_button( FREEZE_BUTTON_PIN, FREEZE_BUTTON_IS_TOGGLE ),
   m_mode_button( MODE_BUTTON_PIN, false ),
@@ -37,6 +39,8 @@ void AUDIO_FREEZE_INTERFACE::update(ADC& adc)
   m_length_dial.update(adc) ;
   m_position_dial.update(adc);
   m_speed_dial.update(adc);
+  m_wow_dial.update(adc);
+  m_flutter_dial.update(adc);
   m_mix_dial.update(adc);
   
   m_freeze_button.update( time_in_ms );
@@ -90,17 +94,24 @@ void AUDIO_FREEZE_INTERFACE::update(ADC& adc)
   alt_func_led.update();
 
 #ifdef DEBUG_OUTPUT
-    Serial.print("Speed ");
-    Serial.print(m_speed_dial.value());
-
-    Serial.print(" Mix ");
-    Serial.print(m_mix_dial.value());
-
     Serial.print(" Length ");
     Serial.print(m_length_dial.value());
  
     Serial.print(" Position ");
     Serial.print(m_position_dial.value());
+
+    Serial.print(" Speed ");
+    Serial.print(m_speed_dial.value());
+
+    Serial.print(" Wow ");
+    Serial.print(m_wow_dial.value());
+
+    Serial.print(" Flutter ");
+    Serial.print(m_flutter_dial.value());    
+
+    Serial.print(" Mix ");
+    Serial.print(m_mix_dial.value());
+    
     Serial.print("\n");   
 #endif // DEBUG_OUTPUT
 }
@@ -118,6 +129,16 @@ const DIAL& AUDIO_FREEZE_INTERFACE::position_dial() const
 const DIAL& AUDIO_FREEZE_INTERFACE::speed_dial() const
 {
   return m_speed_dial;
+}
+
+const DIAL& AUDIO_FREEZE_INTERFACE::wow_dial() const
+{
+  return m_wow_dial;
+}
+
+const DIAL& AUDIO_FREEZE_INTERFACE::flutter_dial() const
+{
+  return m_flutter_dial;
 }
 
 const DIAL& AUDIO_FREEZE_INTERFACE::mix_dial() const
