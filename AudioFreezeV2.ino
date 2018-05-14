@@ -34,12 +34,12 @@ IO io;
 AUDIO_FREEZE_EFFECT      audio_freeze_effect;
 AudioMixer4              audio_mixer;
 
-AudioConnection          patch_cord_L1( io.audio_input, 0, audio_freeze_effect, MIX_FREEZE_CHANNEL );
-AudioConnection          patch_cord_L2( audio_freeze_effect, 0, audio_mixer, 0 );
+AudioConnection          patch_cord_L1( io.audio_input, 0, audio_freeze_effect, 0 );
+AudioConnection          patch_cord_L2( audio_freeze_effect, 0, audio_mixer, MIX_FREEZE_CHANNEL );
 AudioConnection          patch_cord_L3( io.audio_input, 0, audio_mixer, MIX_ORIGINAL_CHANNEL );
 AudioConnection          patch_cord_L4( audio_mixer, 0, io.audio_output, 0 );
 //AudioConnection          patch_cord_L1( audio_input, 0, io.audio_output, 0 );    // left channel passes straight through (for testing)
-AudioConnection          patch_cord_R1( io.audio_input, 1, io.audio_output, 1 );      // right channel passes straight through
+//AudioConnection          patch_cord_R1( io.audio_input, 1, io.audio_output, 1 );      // right channel passes straight through
 
 AUDIO_FREEZE_INTERFACE   audio_freeze_interface;
 
@@ -84,7 +84,7 @@ void setup()
 
   serial_port_initialised = true;
 
-  AudioMemory(8);
+  AudioMemory(12);
 
   audio_freeze_interface.setup();
 
@@ -103,18 +103,18 @@ void loop()
   if( audio_freeze_interface.freeze_button().active() != audio_freeze_effect.is_freeze_active() )
   {
     audio_freeze_effect.set_freeze( audio_freeze_interface.freeze_button().active() );
+  }
 
-    if( audio_freeze_interface.freeze_button().active() )
-    {
-      const float mix = audio_freeze_interface.mix_dial().value();
-      audio_mixer.gain( MIX_FREEZE_CHANNEL, mix );
-      audio_mixer.gain( MIX_ORIGINAL_CHANNEL, 1.0f - mix );
-    }
-    else
-    {
-      audio_mixer.gain( MIX_FREEZE_CHANNEL,0.0f );
-      audio_mixer.gain( MIX_ORIGINAL_CHANNEL, 1.0f );
-    }
+  if( audio_freeze_interface.freeze_button().active() )
+  {
+    const float mix = audio_freeze_interface.mix_dial().value();
+    audio_mixer.gain( MIX_FREEZE_CHANNEL, mix );
+    audio_mixer.gain( MIX_ORIGINAL_CHANNEL, 1.0f - mix );
+  }
+  else
+  {
+    audio_mixer.gain( MIX_FREEZE_CHANNEL,0.0f );
+    audio_mixer.gain( MIX_ORIGINAL_CHANNEL, 1.0f );
   }
 
   if( audio_freeze_interface.mode() == 1 )

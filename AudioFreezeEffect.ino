@@ -141,6 +141,7 @@ void AUDIO_FREEZE_EFFECT::write_sample( int16_t sample, int index )
   {
       case 8:
       {
+          ASSERT_MSG( index < FREEZE_QUEUE_SIZE_IN_BYTES, "Buffer overrun" );
           int8_t sample8                          = (sample >> 8) & 0x00ff;
           int8_t* sample_buffer                   = reinterpret_cast<int8_t*>(m_buffer);
           sample_buffer[ index ]                  = sample8;
@@ -175,6 +176,7 @@ void AUDIO_FREEZE_EFFECT::write_sample( int16_t sample, int index )
       }
       case 16:
       {
+          ASSERT_MSG( index * 2 < FREEZE_QUEUE_SIZE_IN_BYTES, "Buffer overrun" );
           int16_t* sample_buffer                  = reinterpret_cast<int16_t*>(m_buffer);
           sample_buffer[ index ]                  = sample;
           break;
@@ -239,12 +241,6 @@ void AUDIO_FREEZE_EFFECT::write_to_buffer( const int16_t* source, int size )
   for( int x = 0; x < size; ++x )
   {
     write_sample( source[x], trunc_to_int(m_head) );
-	  
-	const int diff  = m_head == 0 ? abs( read_sample( m_buffer_size_in_samples - 1 ) - read_sample( trunc_to_int(m_head) ) ) : abs( read_sample( trunc_to_int(m_head) - 1 ) - read_sample( trunc_to_int(m_head) ) );
-	if( trunc_to_int(m_head) > 0 && diff > 2000 )
-	{
-		printf( "WHOOPS" );
-	}
 
     if( trunc_to_int(++m_head) == m_buffer_size_in_samples )
     {
@@ -490,7 +486,6 @@ void AUDIO_FREEZE_EFFECT::update()
   set_speed_impl( m_next_speed, m_quantise_speed );
   set_freeze_impl( m_next_freeze_active );
   set_reverse_impl( m_next_reverse );
-
 
   ASSERT_MSG( trunc_to_int(m_head) >= 0 && trunc_to_int(m_head) < m_buffer_size_in_samples, "AUDIO_FREEZE_EFFECT::update()" );
   ASSERT_MSG( m_loop_start >= 0 && m_loop_start < m_buffer_size_in_samples, "AUDIO_FREEZE_EFFECT::update()" );
