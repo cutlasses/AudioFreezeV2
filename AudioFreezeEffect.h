@@ -2,7 +2,7 @@
 
 #include <AudioStream.h>
 
-#define FREEZE_QUEUE_SIZE_IN_BYTES     1024*200      // 200k
+#define FREEZE_QUEUE_SIZE_IN_BYTES     1024*240      // 240k
 
 ////////////////////////////////////////
 

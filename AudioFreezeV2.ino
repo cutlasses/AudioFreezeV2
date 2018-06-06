@@ -76,13 +76,15 @@ void set_adc1_to_3v3()
 
 void setup()
 {
-  DEBUG_OUTPUT("Setup BEGIN\n");
+  DEBUG_TEXT("Setup BEGIN\n");
   
   Serial.begin(9600);
 
   set_adc1_to_3v3();
 
+#ifdef DEBUG_OUTPUT
   serial_port_initialised = true;
+#endif
 
   AudioMemory(12);
 
@@ -93,7 +95,7 @@ void setup()
 
   delay(500);
   
-  DEBUG_OUTPUT("Setup END\n");
+  DEBUG_TEXT("Setup END\n");
 }
 
 void loop()
