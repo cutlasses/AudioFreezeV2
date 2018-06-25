@@ -5,5 +5,5 @@ Uses the same PCB as the GlitchDelay, see here for build files https://github.co
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=gib-URplJxI
 " target="_blank"><img src="http://img.youtube.com/vi/gib-URplJxI/0.jpg" 
-alt="Audio Freeze Redux" width="640" height="360" border="0" /></a>
+alt="Audio Freeze Redux" width="560" height="315" border="0" /></a>
 
