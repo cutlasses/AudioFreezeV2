@@ -105,6 +105,7 @@ void loop()
   if( audio_freeze_interface.freeze_button().active() != audio_freeze_effect.is_freeze_active() )
   {
     audio_freeze_effect.set_freeze( audio_freeze_interface.freeze_button().active() );
+    
   }
 
   if( audio_freeze_interface.freeze_button().active() )

@@ -65,24 +65,32 @@ void AUDIO_FREEZE_INTERFACE::update(ADC& adc)
     m_current_mode = ( m_current_mode + 1 ) % NUM_MODES;
   }
 
-  // update mode leds
-  for( int x = 0; x < NUM_LEDS - 1; ++x )
+  // 2 MODES ONLY update mode leds - mode 0 -> no leds on
+  LED& mode_led = m_leds[0];
+  if( m_current_mode == 0 )
   {
-    LED& led = m_leds[x];
-    if( x == m_current_mode )
-    {
-      led.set_active( true );
-    }
-    else
-    {
-      led.set_active( false );
-    }
-
-    led.update();
+    mode_led.set_active( false );
   }
+  else
+  {
+    mode_led.set_active( true );
+  }
+  mode_led.update();
+
+  // set the FREEZE led
+  LED& freeze_led = m_leds[ 1 ];
+  if( m_freeze_button.active() )
+  {
+    freeze_led.set_active( true );
+  }
+  else
+  {
+    freeze_led.set_active( false );
+  }
+  freeze_led.update();
 
   // update bit depth led
-  LED& alt_func_led = m_leds[ NUM_LEDS - 1 ];
+  LED& alt_func_led = m_leds[ 2 ];
   if( m_alt_func )
   {
     alt_func_led.set_active( true );
